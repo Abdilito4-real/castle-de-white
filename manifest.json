@@ -1,0 +1,22 @@
+{
+  "name": "Castle de White House Hotel",
+  "short_name": "Castle WH",
+  "description": "Castle de White House Hotel — Victorian Grandeur in Kaduna GRA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e1a0e",
+  "theme_color": "#0e1a0e",
+  "orientation": "portrait-primary",
+  "lang": "en-NG",
+  "icons": [
+    { "src": "icons/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon-192.svg", "sizes": "180x180", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "categories": ["travel", "lifestyle"],
+  "shortcuts": [
+    { "name": "Reserve a Room", "short_name": "Reserve", "description": "Make a new reservation at Castle de White House Hotel", "url": "/?action=reserve", "icons": [{ "src": "icons/badge-72.svg", "sizes": "72x72", "type": "image/svg+xml" }] },
+    { "name": "Castle Dining Room", "short_name": "Dining", "description": "Reserve a table in our on-site restaurant", "url": "/#dining", "icons": [{ "src": "icons/badge-72.svg", "sizes": "72x72", "type": "image/svg+xml" }] },
+    { "name": "Admin Panel", "short_name": "Admin", "description": "Staff administration dashboard", "url": "/admin.html", "icons": [{ "src": "icons/badge-72.svg", "sizes": "72x72", "type": "image/svg+xml" }] }
+  ]
+}

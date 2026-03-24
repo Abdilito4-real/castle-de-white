@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#e8dbb0"/>
+      <stop offset="50%"  stop-color="#c8b87a"/>
+      <stop offset="100%" stop-color="#8a7a40"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#e8dbb0"/>
+      <stop offset="100%" stop-color="#c8b87a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Dark green circle background -->
+  <circle cx="60" cy="60" r="58" fill="#122012"/>
+  <!-- Outer ring -->
+  <circle cx="60" cy="60" r="58" fill="none" stroke="url(#g1)" stroke-width="1"/>
+  <!-- Inner ring -->
+  <circle cx="60" cy="60" r="52" fill="none" stroke="url(#g1)" stroke-width="0.5" stroke-opacity="0.4"/>
+
+  <!-- ===== CASTLE ===== -->
+  <!-- Base / wall -->
+  <rect x="18" y="80" width="84" height="26" fill="none" stroke="url(#g1)" stroke-width="1.3"/>
+
+  <!-- Side turret left -->
+  <rect x="16" y="60" width="20" height="46" fill="none" stroke="url(#g1)" stroke-width="1.1"/>
+  <!-- Side turret battlements left -->
+  <rect x="16" y="52" width="6"  height="8" fill="none" stroke="url(#g1)" stroke-width="1"/>
+  <rect x="25" y="52" width="6"  height="8" fill="none" stroke="url(#g1)" stroke-width="1"/>
+  <rect x="30" y="52" width="6"  height="8" fill="none" stroke="url(#g1)" stroke-width="1"/>
+  <!-- gap cover -->
+  <rect x="22" y="52" width="3" height="8" fill="#122012"/>
+  <rect x="36" y="52" width="6" height="8" fill="#122012"/>
+
+  <!-- Side turret right -->
+  <rect x="84" y="60" width="20" height="46" fill="none" stroke="url(#g1)" stroke-width="1.1"/>
+  <!-- Side turret battlements right -->
+  <rect x="84" y="52" width="6"  height="8" fill="none" stroke="url(#g1)" stroke-width="1"/>
+  <rect x="93" y="52" width="6"  height="8" fill="none" stroke="url(#g1)" stroke-width="1"/>
+  <rect x="102" y="52" width="6" height="8" fill="none" stroke="url(#g1)" stroke-width="1"/>
+  <!-- gap cover -->
+  <rect x="90" y="52" width="3" height="8" fill="#122012"/>
+  <rect x="99" y="52" width="3" height="8" fill="#122012"/>
+
+  <!-- Central tower body -->
+  <rect x="38" y="45" width="44" height="61" fill="none" stroke="url(#g1)" stroke-width="1.3"/>
+
+  <!-- Central tower battlements -->
+  <rect x="38" y="35" width="9"  height="10" fill="none" stroke="url(#g1)" stroke-width="1.1"/>
+  <rect x="51" y="35" width="9"  height="10" fill="none" stroke="url(#g1)" stroke-width="1.1"/>
+  <rect x="64" y="35" width="9"  height="10" fill="none" stroke="url(#g1)" stroke-width="1.1"/>
+  <rect x="75" y="35" width="7"  height="10" fill="none" stroke="url(#g1)" stroke-width="1.1"/>
+  <!-- gap covers -->
+  <rect x="47" y="35" width="4"  height="10" fill="#122012"/>
+  <rect x="60" y="35" width="4"  height="10" fill="#122012"/>
+  <rect x="73" y="35" width="2"  height="10" fill="#122012"/>
+  <rect x="82" y="35" width="4"  height="10" fill="#122012"/>
+
+  <!-- Central tower spire -->
+  <polygon points="60,10 70,35 50,35" fill="none" stroke="url(#g2)" stroke-width="1.3"/>
+  <line x1="60" y1="10" x2="60" y2="22" stroke="#e8dbb0" stroke-width="0.8" opacity="0.5"/>
+  <!-- Flag -->
+  <polygon points="60,10 68,13 60,16" fill="#c8b87a" opacity="0.8"/>
+
+  <!-- Tower window arch (pointed) -->
+  <rect x="50" y="55" width="20" height="24" fill="none" stroke="url(#g1)" stroke-width="1"/>
+  <path d="M50 55 Q60 46 70 55" fill="none" stroke="url(#g1)" stroke-width="1"/>
+
+  <!-- Door arch at base -->
+  <rect x="51" y="88" width="18" height="18" fill="none" stroke="url(#g1)" stroke-width="1"/>
+  <path d="M51 88 Q60 81 69 88" fill="none" stroke="url(#g1)" stroke-width="1"/>
+
+  <!-- Left turret window -->
+  <rect x="20" y="68" width="12" height="10" fill="none" stroke="url(#g1)" stroke-width="0.8"/>
+  <!-- Right turret window -->
+  <rect x="88" y="68" width="12" height="10" fill="none" stroke="url(#g1)" stroke-width="0.8"/>
+
+  <!-- Decorative base dots -->
+  <circle cx="40" cy="112" r="1.2" fill="#c8b87a" opacity="0.5"/>
+  <circle cx="60" cy="112" r="1.2" fill="#c8b87a" opacity="0.5"/>
+  <circle cx="80" cy="112" r="1.2" fill="#c8b87a" opacity="0.5"/>
+</svg>

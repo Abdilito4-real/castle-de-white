@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0e1a0e" />
+  <meta name="description" content="Castle de White House Hotel — Victorian Grandeur in the Heart of Kaduna GRA" />
+  <title>Castle de White House Hotel | Kaduna GRA</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
+  <link rel="shortcut icon" href="icons/favicon.svg" />
+  <link rel="apple-touch-icon" href="icons/icon-192.svg" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============================================================ LOADER -->
+<div id="loader">
+  <div class="loader-ring">
+    <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+      <circle class="loader-ring-track" cx="45" cy="45" r="42"/>
+      <circle class="loader-ring-fill"  cx="45" cy="45" r="42" transform="rotate(-90 45 45)"/>
+    </svg>
+  </div>
+  <p class="loader-wordmark">Castle de White House</p>
+  <p class="loader-tagline">Victorian Elegance · Kaduna GRA</p>
+</div>
+
+<div id="page-content">
+
+  <!-- ============================================================ NAV -->
+  <nav id="nav">
+    <a class="nav-logo" href="#">Castle de <span>White House</span></a>
+    <ul class="nav-links">
+      <li><a href="#rooms">Rooms</a></li>
+      <li><a href="#amenities">Amenities</a></li>
+      <li><a href="#dining">Dining</a></li>
+      <li><a href="#location">Location</a></li>
+    </ul>
+    <button class="nav-cta" onclick="openModal()">Book Now</button>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-links">
+      <a href="#rooms"      onclick="toggleMenu()">Rooms</a>
+      <a href="#amenities"  onclick="toggleMenu()">Amenities</a>
+      <a href="#dining"     onclick="toggleMenu()">Dining</a>
+      <a href="#location"   onclick="toggleMenu()">Location</a>
+    </div>
+    <div class="mobile-menu-cta">
+      <button class="btn-primary" onclick="openModal(); toggleMenu()">Reserve a Room</button>
+    </div>
+  </div>
+
+  <!-- ============================================================ HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-ornament" aria-hidden="true">
+      <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="180" width="180" height="80" stroke="#c8b87a" stroke-width="0.8" fill="none"/>
+        <rect x="70"  y="140" width="25" height="40" stroke="#c8b87a" stroke-width="0.6"/>
+        <rect x="110" y="140" width="25" height="40" stroke="#c8b87a" stroke-width="0.6"/>
+        <rect x="150" y="140" width="25" height="40" stroke="#c8b87a" stroke-width="0.6"/>
+        <rect x="190" y="140" width="25" height="40" stroke="#c8b87a" stroke-width="0.6"/>
+        <rect x="115" y="100" width="70" height="50" stroke="#c8b87a" stroke-width="0.8"/>
+        <polygon points="150,60 175,100 125,100" stroke="#c8b87a" fill="none" stroke-width="0.8"/>
+      </svg>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-line"></span>
+        <span>Kaduna GRA · Unguwar Rimi</span>
+        <span class="hero-eyebrow-line"></span>
+      </div>
+      <h1 class="hero-title">
+        Victorian <em>Grandeur</em><br>in Kaduna's Heart
+      </h1>
+      <p class="hero-sub">
+        A distinguished retreat at No. 9 Kwato Road, where Victorian elegance meets warm Northern Nigerian hospitality — serene, secure, unforgettable.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="openModal()">Reserve a Room</button>
+        <button class="btn-ghost"   onclick="document.getElementById('rooms').scrollIntoView({behavior:'smooth'})">Explore Rooms</button>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Discover Serenity</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ BOOKING BAR -->
+  <div id="booking-bar">
+    <div class="booking-grid">
+      <div class="booking-field">
+        <label for="checkin">Arrival</label>
+        <input type="date" id="checkin" />
+      </div>
+      <div class="booking-field">
+        <label for="checkout">Departure</label>
+        <input type="date" id="checkout" />
+      </div>
+      <div class="booking-field">
+        <label for="roomSelect">Room Type</label>
+        <select id="roomSelect">
+          <option value="">Any Room</option>
+          <option value="deluxe">Deluxe Room</option>
+          <option value="junior_suite">Classic Suite</option>
+          <option value="grand_suite">Presidential Suite</option>
+        </select>
+      </div>
+      <div class="booking-actions">
+        <button class="booking-submit" onclick="handleBookingCheck()">Check Availability</button>
+        <button class="booking-refresh" onclick="refreshAvailability()" title="Reset dates">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M13.5 8A5.5 5.5 0 1 1 8 2.5c1.8 0 3.4.86 4.4 2.2" stroke-linecap="round"/>
+            <polyline points="12,1 12.5,4.5 9,4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ ROOMS -->
+  <section id="rooms">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-eyebrow">Accommodations</p>
+        <h2 class="section-title">Rooms &amp; <em>Suites</em></h2>
+        <div class="divider"></div>
+        <p class="section-lead">Each of our 17 rooms is a sanctuary of Victorian-inspired elegance — spacious layouts, vintage bathtubs, and handcrafted furnishings.</p>
+      </div>
+      <div class="rooms-grid" id="rooms-grid-dynamic"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ AMENITIES -->
+  <section id="amenities">
+    <div class="amenities-wrapper">
+      <div class="amenities-visual">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80" alt="Hotel pool and garden" loading="lazy" />
+      </div>
+      <div class="reveal">
+        <p class="section-eyebrow">Luxury &amp; Comfort</p>
+        <h2 class="section-title">Amenities &amp; <em>Services</em></h2>
+        <div class="divider"></div>
+        <div class="amenities-list">
+
+          <div class="amenity-item">
+            <div class="amenity-icon">
+              <!-- Coffee / breakfast icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="#c8b87a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/>
+              </svg>
+            </div>
+            <div class="amenity-text">
+              <h4>Complimentary Breakfast</h4>
+              <p>Start each morning with a curated full English or Nigerian breakfast in the Castle Dining Room.</p>
+            </div>
+          </div>
+
+          <div class="amenity-item">
+            <div class="amenity-icon">
+              <!-- Pool / droplet icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="#c8b87a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <div class="amenity-text">
+              <h4>Private Swimming Pool</h4>
+              <p>Serene outdoor pool surrounded by manicured gardens — perfect for relaxation.</p>
+            </div>
+          </div>
+
+          <div class="amenity-item">
+            <div class="amenity-icon">
+              <!-- Wi-fi icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="#c8b87a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="#c8b87a"/>
+              </svg>
+            </div>
+            <div class="amenity-text">
+              <h4>High-Speed Wi-Fi &amp; Parking</h4>
+              <p>Complimentary ultra-fast internet and secure on-site parking for all guests.</p>
+            </div>
+          </div>
+
+          <div class="amenity-item">
+            <div class="amenity-icon">
+              <!-- Shield icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="#c8b87a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div class="amenity-text">
+              <h4>24-Hour Security &amp; Concierge</h4>
+              <p>Round-the-clock security in GRA enclave, plus dedicated front desk assistance.</p>
+            </div>
+          </div>
+
+          <div class="amenity-item">
+            <div class="amenity-icon">
+              <!-- AC / snowflake icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="#c8b87a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="2" x2="12" y2="22"/><path d="m20 15-8-3-8 3"/><path d="m20 9-8 3-8-3"/><path d="m17 4-5 3-5-3"/><path d="m17 20-5-3-5 3"/>
+              </svg>
+            </div>
+            <div class="amenity-text">
+              <h4>Air Conditioning &amp; Room Service</h4>
+              <p>Fully air-conditioned rooms with in-room dining and laundry services available.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ DINING -->
+  <section id="dining">
+    <div class="dining-grid">
+      <div class="dining-gallery">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=80" alt="Castle Dining Room" loading="lazy" />
+        <div class="dining-badge">
+          <span class="stars">★★★</span>
+          <span class="label">Dining</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <p class="section-eyebrow">On-Site Restaurant</p>
+        <h2 class="section-title">The <em>Castle Dining Room</em></h2>
+        <div class="divider"></div>
+        <p class="section-lead">A warm, intimate dining experience blending African and Western hospitality — served daily within the grand halls of Castle de White House.</p>
+
+        <div class="full-menu-list">
+          <div class="menu-category">
+            <h4>Breakfast Selections</h4>
+            <div class="menu-row"><span class="menu-name">Full English Breakfast</span><span class="menu-price">Included</span></div>
+            <div class="menu-row"><span class="menu-name">Nigerian Continental Platter</span><span class="menu-price">₦4,500</span></div>
+          </div>
+          <div class="menu-category">
+            <h4>Lunch &amp; Dinner</h4>
+            <div class="menu-row"><span class="menu-name">Grilled Suya with Sides</span><span class="menu-price">₦5,800</span></div>
+            <div class="menu-row"><span class="menu-name">Pepper Soup &amp; Eba</span><span class="menu-price">₦3,500</span></div>
+            <div class="menu-row"><span class="menu-name">Grilled Lamb Chops</span><span class="menu-price">₦9,200</span></div>
+            <div class="menu-row"><span class="menu-name">Jollof Rice with Plantain</span><span class="menu-price">₦4,200</span></div>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="reserveDiningTable()">Reserve a Table</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ LOCATION -->
+  <section id="location">
+    <div class="location-grid">
+      <div class="reveal">
+        <p class="section-eyebrow">Find Us</p>
+        <h2 class="section-title">Nestled in <em>Kaduna GRA</em></h2>
+        <div class="divider"></div>
+        <p class="section-lead">Located at No. 9 Kwato Road, Unguwar Rimi GRA, Kaduna — in the secure and tranquil Government Reserved Area.</p>
+        <ul class="location-details">
+          <li>
+            <span class="location-detail-icon">
+              <svg viewBox="0 0 16 16" fill="none" stroke="#c8b87a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z"/>
+                <circle cx="8" cy="6" r="1.5"/>
+              </svg>
+            </span>
+            <span>No. 9 Kwato Road, Unguwar Rimi GRA, Kaduna</span>
+          </li>
+          <li>
+            <span class="location-detail-icon">
+              <svg viewBox="0 0 16 16" fill="none" stroke="#c8b87a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="8" r="6.5"/><polyline points="8,4 8,8 11,10"/>
+              </svg>
+            </span>
+            <span>Check-in: 12:00 PM – 8:00 PM · Check-out: Before 12:00 PM</span>
+          </li>
+          <li>
+            <span class="location-detail-icon">
+              <svg viewBox="0 0 16 16" fill="none" stroke="#c8b87a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h2.5l1.5 3.5-1.5 1a9 9 0 0 0 4 4l1-1.5L13 11.5V14a1 1 0 0 1-1 1C5.4 15 1 10.6 1 4a1 1 0 0 1 1-1z"/>
+              </svg>
+            </span>
+            <span>+234 (0) 800 CASTLE · reservations@castlewhitehouse.ng</span>
+          </li>
+          <li>
+            <span class="location-detail-icon">
+              <svg viewBox="0 0 16 16" fill="none" stroke="#c8b87a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="8" r="6.5"/><path d="M8 4v4l3 1.5"/>
+              </svg>
+            </span>
+            <span>Nearby: Kaduna Museum, Polo Club, Golf Course, City Centre</span>
+          </li>
+        </ul>
+      </div>
+      <div class="map-card reveal">
+        <div class="map-symbol">
+          <svg width="56" height="56" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="36" width="44" height="20" fill="none" stroke="#c8b87a" stroke-width="1.2"/>
+            <rect x="14" y="27" width="9"  height="9" fill="none" stroke="#c8b87a" stroke-width="1"/>
+            <rect x="26" y="27" width="9"  height="9" fill="none" stroke="#c8b87a" stroke-width="1"/>
+            <rect x="38" y="27" width="9"  height="9" fill="none" stroke="#c8b87a" stroke-width="1"/>
+            <rect x="22" y="18" width="16" height="18" fill="none" stroke="#c8b87a" stroke-width="1.2"/>
+            <polygon points="30,5 42,18 18,18" fill="none" stroke="#c8b87a" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <p class="place-name">Castle de White House</p>
+        <p class="place-address">No. 9 Kwato Road<br>Unguwar Rimi GRA, Kaduna</p>
+        <a href="https://maps.google.com/?q=Castle+de+White+House+Kaduna" target="_blank" rel="noopener" class="map-link">Open in Google Maps &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="testimonial-card reveal">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="testimonial-quote">The most peaceful corner of Kaduna. Victorian elegance with genuine Nigerian warmth — I felt like royalty. The presidential suite is unforgettable.</p>
+        <p class="testimonial-author">Abubakar Musa &nbsp;&middot;&nbsp; Abuja</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ NEWSLETTER -->
+  <section id="newsletter">
+    <div class="container">
+      <div class="newsletter-box reveal">
+        <p class="section-eyebrow">Stay Connected</p>
+        <h2 class="section-title">The <em>Castle Gazette</em></h2>
+        <div class="divider" style="margin:1rem auto;"></div>
+        <p class="section-lead" style="margin:0 auto;">Exclusive offers, seasonal packages, and news from Kaduna's most distinguished address.</p>
+        <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletter(event)" novalidate>
+          <input type="email" id="newsletterEmail" placeholder="Your email address" class="newsletter-input" required />
+          <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="nav-logo" href="#">Castle de <span>White House</span></a>
+        <p>Victorian elegance at No. 9 Kwato Road, Kaduna GRA. A distinguished retreat where heritage meets warm hospitality.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Hotel</h4>
+        <ul>
+          <li><a href="#rooms">Rooms &amp; Suites</a></li>
+          <li><a href="#dining">Restaurant</a></li>
+          <li><a href="#amenities">Amenities</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+2348000000000">+234 (0) 800 CASTLE</a></li>
+          <li><a href="mailto:reservations@castlewhitehouse.ng">reservations@castlewhitehouse.ng</a></li>
+          <li>No. 9 Kwato Road, GRA</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Castle de White House Hotel. All rights reserved.</span>
+      <span>Privacy Policy &nbsp;&middot;&nbsp; Terms of Use</span>
+    </div>
+  </footer>
+
+</div><!-- /page-content -->
+
+<!-- ============================================================ RESERVATION MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOnOverlay(event)" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close modal">&#10005;</button>
+    <h2 class="modal-title" id="modalTitle">Reserve Your Stay</h2>
+    <p class="modal-subtitle">Begin your Castle de White House experience</p>
+
+    <div class="modal-form" id="reservationForm" novalidate>
+
+      <!-- Row 1: Name -->
+      <div class="form-group">
+        <label for="guestFirst">First Name</label>
+        <input type="text" id="guestFirst" class="modal-input" placeholder="Amina" autocomplete="given-name" />
+        <span class="field-error" id="errFirst">Please enter your first name.</span>
+      </div>
+      <div class="form-group">
+        <label for="guestLast">Last Name</label>
+        <input type="text" id="guestLast" class="modal-input" placeholder="Ibrahim" autocomplete="family-name" />
+        <span class="field-error" id="errLast">Please enter your last name.</span>
+      </div>
+
+      <!-- Row 2: Contact -->
+      <div class="form-group">
+        <label for="guestEmail">Email Address</label>
+        <input type="email" id="guestEmail" class="modal-input" placeholder="you@example.com" autocomplete="email" />
+        <span class="field-error" id="errEmail">Please enter a valid email address.</span>
+      </div>
+      <div class="form-group">
+        <label for="guestPhone">Phone Number</label>
+        <input type="tel" id="guestPhone" class="modal-input" placeholder="+234 000 000 0000" autocomplete="tel" />
+        <span class="field-error" id="errPhone">Please enter a phone number.</span>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- Row 3: Dates -->
+      <div class="form-group">
+        <label for="modalCheckin">Check-in Date</label>
+        <input type="date" id="modalCheckin" class="modal-input" />
+        <span class="field-error" id="errCheckin">Please select a check-in date.</span>
+      </div>
+      <div class="form-group">
+        <label for="modalCheckout">Check-out Date</label>
+        <input type="date" id="modalCheckout" class="modal-input" />
+        <span class="field-error" id="errCheckout">Check-out must be after check-in.</span>
+      </div>
+
+      <!-- Row 4: Room + Guests -->
+      <div class="form-group">
+        <label for="guestRoom">Room Type</label>
+        <select id="guestRoom" class="modal-input">
+          <option value="deluxe">Deluxe Room — ₦85,000 / night</option>
+          <option value="junior_suite">Classic Suite — ₦145,000 / night</option>
+          <option value="grand_suite">Presidential Suite — ₦320,000 / night</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="guestCount">Number of Guests</label>
+        <select id="guestCount" class="modal-input">
+          <option value="1">1 Guest</option>
+          <option value="2" selected>2 Guests</option>
+          <option value="3">3 Guests</option>
+          <option value="4">4+ Guests</option>
+        </select>
+      </div>
+
+      <!-- Special Requests -->
+      <div class="form-group full">
+        <label for="guestNotes">Special Requests <span style="font-weight:300;text-transform:none;font-size:0.85em;color:rgba(245,240,232,0.3)">(optional)</span></label>
+        <textarea id="guestNotes" class="modal-input" placeholder="Early check-in, dietary requirements, accessibility needs…"></textarea>
+      </div>
+
+      <!-- Submit -->
+      <div class="modal-form-footer">
+        <button class="btn-primary" id="reserveBtn" onclick="handleReservation()">Confirm Reservation Request</button>
+        <p class="modal-note">No payment required now &nbsp;&middot;&nbsp; We'll contact you within 2 hours</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div id="successOverlay">
+  <div class="success-ring">
+    <svg viewBox="0 0 32 32" fill="none" stroke="#c8b87a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="5,16 12,23 27,9"/>
+    </svg>
+  </div>
+  <h2 class="success-title">Reservation Received</h2>
+  <p class="success-body">Thank you for choosing Castle de White House. Our team will reach out within 2 hours to confirm your booking details.</p>
+  <button class="success-close" onclick="closeSuccess()">Return to Homepage</button>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container" aria-live="polite"></div>
+
+<!-- ============================================================ SCRIPTS -->
+<script>
+  /* ---- Supabase ---- */
+  let db = null;
+  const SUPABASE_URL = 'https://naxvssbtocfyxleaxfom.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5heHZzc2J0b2NmeXhsZWF4Zm9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NDQxNjMsImV4cCI6MjA4OTUyMDE2M30.dw3DO9qhanod64_m-CCJ_5wLDrhDcP521O8mLW-cLgU';
+  if (window.supabase) db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  /* ============================================================
+     TOAST SYSTEM
+  ============================================================ */
+  function showToast(msg, type = 'info') {
+    const container = document.getElementById('toast-container');
+    const el = document.createElement('div');
+    el.className = 'toast-item';
+    el.innerHTML = `<span class="toast-dot ${type}"></span><span>${msg}</span>`;
+    container.appendChild(el);
+    setTimeout(() => {
+      el.classList.add('removing');
+      setTimeout(() => el.remove(), 320);
+    }, 4000);
+  }
+
+  /* ============================================================
+     MODAL
+  ============================================================ */
+  function openModal(room) {
+    const modal = document.getElementById('modal');
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (room) document.getElementById('guestRoom').value = room;
+    // Sync dates from booking bar
+    const ci = document.getElementById('checkin').value;
+    const co = document.getElementById('checkout').value;
+    if (ci) document.getElementById('modalCheckin').value = ci;
+    if (co) document.getElementById('modalCheckout').value = co;
+    // Clear previous errors
+    clearErrors();
+  }
+
+  /* ============================================================
+     DYNAMIC ROOMS LOADER
+  ============================================================ */
+  async function loadRooms() {
+    if (!db) return;
+    // Fetch active rooms, ordered by price
+    const { data: rooms, error } = await db.from('rooms')
+      .select('*')
+      .eq('is_active', true)
+      .order('base_price', { ascending: true });
+
+    if (error) { console.error('Rooms load error:', error); return; }
+    
+    const container = document.getElementById('rooms-grid-dynamic');
+    if (!container || !rooms.length) return;
+
+    // Map types to images (fallback logic)
+    const imgMap = {
+      deluxe: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80',
+      junior_suite: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80',
+      grand_suite: 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80',
+      penthouse: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80'
+    };
+
+    container.innerHTML = rooms.map(r => {
+      const typeLabel = (r.room_type || 'Room').replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      const img = imgMap[r.room_type] || imgMap.deluxe;
+      const desc = r.description || `Experience our ${typeLabel} with classic Victorian decor.`;
+      const price = parseInt(r.base_price).toLocaleString('en-NG');
+
+      return `
+        <div class="room-card reveal visible">
+          <div class="room-img-wrap"><img src="${img}" alt="${typeLabel}" loading="lazy" /></div>
+          <div class="room-body">
+            <h3 class="room-name">${typeLabel} <span style="font-size:0.6em;opacity:0.6;font-weight:400">(${r.room_number})</span></h3>
+            <p class="room-desc">${desc}</p>
+            <div class="room-footer">
+              <div class="room-price"><span class="amount">₦${price}</span><span class="per"> / night</span></div>
+              <button class="btn-room" onclick="openModal('${r.room_type}')">Book Now</button>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOnOverlay(e) {
+    if (e.target.id === 'modal') closeModal();
+  }
+
+  /* ============================================================
+     FORM VALIDATION HELPERS
+  ============================================================ */
+  function setError(inputId, errorId, show) {
+    const input = document.getElementById(inputId);
+    const err   = document.getElementById(errorId);
+    if (!input || !err) return;
+    if (show) {
+      input.classList.add('error');
+      err.classList.add('visible');
+    } else {
+      input.classList.remove('error');
+      err.classList.remove('visible');
+    }
+  }
+  function clearErrors() {
+    const pairs = [
+      ['guestFirst','errFirst'], ['guestLast','errLast'],
+      ['guestEmail','errEmail'], ['guestPhone','errPhone'],
+      ['modalCheckin','errCheckin'], ['modalCheckout','errCheckout']
+    ];
+    pairs.forEach(([id, eid]) => setError(id, eid, false));
+  }
+  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function isValidPhone(v) { return v.replace(/[\s\-().+]/g,'').length >= 7; }
+
+  /* ============================================================
+     HANDLE RESERVATION
+  ============================================================ */
+  async function handleReservation() {
+    clearErrors();
+
+    const first    = document.getElementById('guestFirst').value.trim();
+    const last     = document.getElementById('guestLast').value.trim();
+    const email    = document.getElementById('guestEmail').value.trim();
+    const phone    = document.getElementById('guestPhone').value.trim();
+    const checkin  = document.getElementById('modalCheckin').value;
+    const checkout = document.getElementById('modalCheckout').value;
+    const room     = document.getElementById('guestRoom').value;
+    const count    = document.getElementById('guestCount').value;
+    let notes      = document.getElementById('guestNotes').value.trim();
+
+    let valid = true;
+    if (!first)             { setError('guestFirst',   'errFirst',   true); valid = false; }
+    if (!last)              { setError('guestLast',    'errLast',    true); valid = false; }
+    if (!isValidEmail(email))  { setError('guestEmail',   'errEmail',   true); valid = false; }
+    if (!isValidPhone(phone))  { setError('guestPhone',   'errPhone',   true); valid = false; }
+    if (!checkin)           { setError('modalCheckin', 'errCheckin', true); valid = false; }
+    if (!checkout || checkout <= checkin) { setError('modalCheckout','errCheckout',true); valid = false; }
+    if (!valid) { showToast('Please fix the highlighted fields.', 'error'); return; }
+
+    if (count) notes = `(${count} Guests) ` + notes;
+
+    // Disable button & show spinner
+    const btn = document.getElementById('reserveBtn');
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="btn-spinner"></span> Sending…';
+
+    try {
+      if (!db) throw new Error('Service currently unavailable. Please try again later.');
+
+      // Use RPC to ensure availability check happens atomically on backend
+      const { data, error } = await db.rpc('create_reservation', {
+        p_first_name: first,
+        p_last_name: last,
+        p_email: email,
+        p_phone: phone,
+        p_room_type: room,
+        p_check_in: checkin,
+        p_check_out: checkout,
+        p_special_requests: notes
+      });
+
+      // Handle Postgres exceptions (network, auth, system)
+      if (error) throw error;
+
+      // Handle logic failures (room not available) returned by RPC
+      if (data && data.success === false) {
+        throw new Error(data.error || 'Reservation could not be processed.');
+      }
+
+      // Success logic
+      btn.innerHTML = 'Confirmed!';
+      setTimeout(() => {
+        closeModal();
+        document.getElementById('successOverlay').classList.add('open');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        // Reset form fields
+        document.querySelectorAll('.modal-input').forEach(i => i.value = '');
+        document.getElementById('guestRoom').value = 'deluxe';
+        document.getElementById('guestCount').value = '2';
+      }, 600);
+
+    } catch (err) {
+      console.error(err); // Log for debugging
+      
+      // Reset button so user can try again
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+
+      // Informative Error Messages
+      let msg = 'Could not submit reservation. Please try again.';
+      if (err.message && (err.message.includes('No') && err.message.includes('available'))) {
+        msg = 'Selected room is not available for these dates.';
+      } else if (err.message && err.message.includes('High booking volume')) {
+        msg = err.message;
+      } else if (err.message && err.message.includes('fetch')) {
+        msg = 'Network connection error. Please check your internet.';
+      }
+      
+      showToast(msg, 'error');
+    }
+  }
+
+  function closeSuccess() {
+    document.getElementById('successOverlay').classList.remove('open');
+  }
+
+  /* ============================================================
+     BOOKING BAR
+  ============================================================ */
+  function handleBookingCheck() {
+    const ci = document.getElementById('checkin').value;
+    const co = document.getElementById('checkout').value;
+    const rm = document.getElementById('roomSelect').value;
+    if (!ci)       { showToast('Please select an arrival date.', 'error');   return; }
+    if (!co)       { showToast('Please select a departure date.', 'error');  return; }
+    if (ci >= co)  { showToast('Departure must be after arrival.', 'error'); return; }
+    showToast('Rooms available for your dates. Complete your reservation.', 'success');
+    openModal(rm || undefined);
+  }
+
+  function refreshAvailability() {
+    const today    = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    document.getElementById('checkin').value   = fmt(today);
+    document.getElementById('checkout').value  = fmt(tomorrow);
+    document.getElementById('roomSelect').value = '';
+    showToast('Booking dates reset to today.', 'info');
+  }
+
+  /* ============================================================
+     DINING
+  ============================================================ */
+  function reserveDiningTable() {
+    showToast('For dining reservations, call us or email: reservations@castlewhitehouse.ng', 'info');
+  }
+
+  /* ============================================================
+     NEWSLETTER
+  ============================================================ */
+  async function handleNewsletter(e) {
+    e.preventDefault();
+    const email = document.getElementById('newsletterEmail').value.trim();
+    if (!isValidEmail(email)) { showToast('Please enter a valid email address.', 'error'); return; }
+    
+    const btn = e.target.querySelector('button');
+    const originalText = btn.innerText;
+    btn.disabled = true; btn.innerText = '...';
+
+    if (db) {
+      // Using insert directly as allowed by RLS policy
+      const { error } = await db.from('newsletter_subscribers').insert([{ email }]);
+      if (!error) showToast('Welcome to The Castle Gazette! You are subscribed.', 'success');
+      else showToast('Could not subscribe. You may already be on our list.', 'error');
+    }
+    
+    btn.disabled = false; btn.innerText = originalText;
+    if (db) e.target.reset();
+  }
+
+  /* ============================================================
+     MOBILE MENU
+  ============================================================ */
+  function toggleMenu() {
+    const menu  = document.getElementById('mobileMenu');
+    const spans = document.querySelectorAll('#hamburger span');
+    menu.classList.toggle('open');
+    const open = menu.classList.contains('open');
+    if (spans[0]) {
+      spans[0].style.transform = open ? 'rotate(45deg) translate(5px,5px)'   : '';
+      spans[1].style.opacity   = open ? '0' : '1';
+      spans[2].style.transform = open ? 'rotate(-45deg) translate(4px,-5px)' : '';
+    }
+  }
+
+  /* ============================================================
+     SCROLL + REVEAL
+  ============================================================ */
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+  const revealObserver = new IntersectionObserver(
+    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ============================================================
+     LOADER + DEFAULT DATES
+  ============================================================ */
+  const fmt = d => d.toISOString().split('T')[0];
+  const today    = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
+  document.getElementById('checkin').value       = fmt(today);
+  document.getElementById('checkout').value      = fmt(tomorrow);
+  document.getElementById('modalCheckin').value  = fmt(today);
+  document.getElementById('modalCheckout').value = fmt(tomorrow);
+
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    document.getElementById('page-content').classList.add('visible');
+    loadRooms(); // Fetch rooms dynamically
+  }, 1100);
+
+  /* Live field validation (clears errors as user types) */
+  ['guestFirst','guestLast','guestEmail','guestPhone','modalCheckin','modalCheckout'].forEach(id => {
+    const el  = document.getElementById(id);
+    const eid = 'err' + id.replace('guest','').replace('modal','').replace(/^\w/, c => c.toUpperCase());
+    if (el) el.addEventListener('input', () => { el.classList.remove('error'); const e = document.getElementById(eid); if(e) e.classList.remove('visible'); });
+  });
+</script>
+</body>
+</html>

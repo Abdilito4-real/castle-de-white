@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 60" width="320" height="60">
+  <defs>
+    <linearGradient id="wGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e8dbb0"/>
+      <stop offset="50%" stop-color="#c8b87a"/>
+      <stop offset="100%" stop-color="#8a7a40"/>
+    </linearGradient>
+  </defs>
+  <!-- Castle icon -->
+  <rect x="2" y="34" width="32" height="20" fill="none" stroke="url(#wGold)" stroke-width="1.2"/>
+  <rect x="2" y="24" width="6" height="10" fill="none" stroke="url(#wGold)" stroke-width="1.2"/>
+  <rect x="10" y="24" width="5" height="10" fill="none" stroke="url(#wGold)" stroke-width="1.2"/>
+  <rect x="17" y="24" width="5" height="10" fill="none" stroke="url(#wGold)" stroke-width="1.2"/>
+  <rect x="24" y="24" width="6" height="10" fill="none" stroke="url(#wGold)" stroke-width="1.2"/>
+  <rect x="10" y="14" width="16" height="20" fill="none" stroke="url(#wGold)" stroke-width="1.2"/>
+  <polygon points="18,6 26,14 10,14" fill="#c8b87a" opacity="0.7"/>
+  <!-- Wordmark -->
+  <text x="44" y="36" font-family="'Playfair Display', Georgia, serif" font-size="22" font-weight="400" fill="url(#wGold)" letter-spacing="1">Castle de</text>
+  <text x="44" y="54" font-family="'Playfair Display', Georgia, serif" font-size="16" font-style="italic" font-weight="400" fill="#e8dbb0" letter-spacing="2" opacity="0.9">White House Hotel</text>
+  <!-- Thin divider line -->
+  <line x1="44" y1="40" x2="316" y2="40" stroke="#c8b87a" stroke-width="0.4" opacity="0.25"/>
+</svg>
